@@ -35,29 +35,71 @@
     </style>
 </head>
 <body>
-    <img src="Image 2025-03-12 at 15.49.37.jpeg" alt="Banner Prefeitura de Ibiapina" style="width:30%; display:block; margin-bottom:50px;">
+    <img src="imagem/Image 2025-03-12 at 15.49.37.jpeg" alt="Banner Prefeitura de Ibiapina" style="width:30%; display:block; margin-bottom:50px;">
     <h1>Escola Aderaldo Negreiro<br>Acesso às Turmas</h1>
 
     <div class="container">
-        <!-- Substitua os gid e o ID da planilha nos links abaixo -->
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/1giI3kNJGRrVrJA8w3rseop2GYu2KZFg1Y7IM3ZBZVF0/edit?usp=sharing'">Infantil II</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_INFANTIL_III'">Infantil III</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_INFANTIL_IV'">Infantil IV</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_INFANTIL_V'">Infantil V</button>
+        <button class="btn" onclick="mostrarInfo('A1')">Infantil II</button>
+        <button class="btn" onclick="mostrarInfo('B2')">Infantil III</button>
+        <button class="btn" onclick="mostrarInfo('D4')">Infantil IV</button>
+        <button class="btn" onclick="mostrarInfo('F6')">Infantil V</button>
 
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_1ANO'">1º Ano</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_2ANO'">2º Ano</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_3ANO'">3º Ano</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_4ANO'">4º Ano</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_5ANO'">5º Ano</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_6ANO'">6º Ano</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_7ANO'">7º Ano</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_8ANO'">8º Ano</button>
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_9ANO'">9º Ano</button>
+        <button class="btn" onclick="mostrarInfo('E2')">1º Ano</button>
+        <button class="btn" onclick="mostrarInfo('F2')">2º Ano</button>
+        <button class="btn" onclick="mostrarInfo('G2')">3º Ano</button>
+        <button class="btn" onclick="mostrarInfo('H2')">4º Ano</button>
+        <button class="btn" onclick="mostrarInfo('I2')">5º Ano</button>
+        <button class="btn" onclick="mostrarInfo('J2')">6º Ano</button>
+        <button class="btn" onclick="mostrarInfo('K2')">7º Ano</button>
+        <button class="btn" onclick="mostrarInfo('L2')">8º Ano</button>
+        <button class="btn" onclick="mostrarInfo('M2')">9º Ano</button>
 
-        <button class="btn" onclick="location.href='https://docs.google.com/spreadsheets/d/ID_DA_PLANILHA/edit#gid=GID_EJA'">EJA I e II</button>
+        <button class="btn" onclick="mostrarInfo('N2')">EJA I e II</button>
     </div>
+    <pre> 
+
+    </pre>
+
+    <div id="resultado">Clique em um botão para carregar a informação...</div>
+
+
+<script> 
+const PLANILHA_ID = "1giI3kNJGRrVrJA8w3rseop2GYu2KZFg1Y7IM3ZBZVF0";
+const GID = "0";
+
+async function mostrarInfo(celula) {
+    const coluna = celula.replace(/[0-9]/g, ""); 
+    const linha = parseInt(celula.replace(/[A-Z]/g, "")) - 1;
+
+    // Converter letra da coluna para número (A=0, B=1, C=2...)
+    const colIndex = coluna.charCodeAt(0) - 65;
+
+    // Selecionar as colunas A e B
+    const url = `https://docs.google.com/spreadsheets/d/${PLANILHA_ID}/gviz/tq?gid=${GID}&tq=select+A,B+limit+1+offset+${linha}`;
+
+    try {
+        const resposta = await fetch(url);
+        const texto = await resposta.text();
+
+        const json = JSON.parse(
+            texto.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/)[1]
+        );
+
+        const a = json.table.rows[0]?.c[0]?.v ?? "—";
+        const b = json.table.rows[0]?.c[1]?.v ?? "—";
+
+        document.getElementById("resultado").innerText =
+            `Turma: ${a}\nQuantidade: ${b}`;
+
+
+    } catch (erro) {
+        document.getElementById("resultado").innerText = "Erro ao buscar dados.";
+        console.error(erro);
+    }
+}
+</script>
+
+
+
 </body>
 </html>
-
-
