@@ -2,105 +2,236 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Escola Aderaldo Negreiros - Acesso às Turmas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola Aderaldo Negreiro - Acesso às Turmas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
+        /* Paleta e Tipografia */
+        :root {
+            --blue-primary: #12af6e; /* Cornflower Blue */
+            --green-highlight: #4b9cdf; /* Green Yellow */
+            --dark-text: #2F4F4F; /* Dark Slate Gray */
+            --light-bg: #E0FFFF; /* Light Cyan para gradiente */
+            --soft-white: #F8F8FF; /* Ghost White */
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            padding: 40px;
+            /* Aplica o gradiente de fundo */
+            background: linear-gradient(to bottom, var(--light-bg), var(--soft-white));
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
             text-align: center;
         }
-        h1 {
-            margin-bottom: 30px;
-        }
-        .container {
+
+        /* --- Cabeçalho e Títulos --- */
+
+        .header-container {
+            /* Fundo sólido para o cabeçalho */
+            background-color: var(--blue-primary);
+            width: 100%;
+            padding: 20px 0;
             display: flex;
-            flex-wrap: wrap;
+            justify-content: center; /* Centraliza logo e títulos */
+            align-items: center;
+            flex-direction: column;
+            /* Cantos arredondados na parte inferior */
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            /* Ajuste para o celular */
+            max-width: 150px; 
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800; /* Extra Bold */
+            font-size: 2em;
+            color: white; /* Cor branca no banner */
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--soft-white);
+            margin-bottom: 15px;
+        }
+
+        /* --- Contêiner e Botões de Turmas --- */
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px; /* Aumenta o espaçamento entre os grupos de botões */
+            padding: 0 10px;
+        }
+
+        .button-row {
+            display: flex;
             justify-content: center;
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .btn {
-            background: #1976d2;
-            color: white;
+
+        .section-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Sombra mais visível */
+            max-width: 95%;
+            width: 500px;
+        }
+        
+        .section-card h3 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            color: var(--blue-primary);
+            border-bottom: 2px solid var(--blue-primary);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        button {
+            /* Estilo Pílula */
+            border-radius: 25px; 
             padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
-            transition: 0.2s;
+            transition: all 0.3s ease-in-out;
+            
+            /* Estilo Padrão (Não Selecionado) */
+            background-color: var(--soft-white);
+            border: 1px solid var(--blue-primary);
+            color: var(--dark-text);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .btn:hover {
-            background: #0d47a1;
+
+        button:hover {
+            background-color: #E6E6FA; /* Um toque de cor no hover */
+            border-color: var(--blue-primary);
+            transform: translateY(-2px); /* Efeito de elevação */
+            box-shadow: 0 4px 8px rgba(114, 209, 216, 0.15);
+        }
+
+        .active-button {
+            /* Estilo do botão Ativo/Selecionado */
+            background-color: var(--green-highlight);
+            color: var(--dark-text);
+            border-color: var(--green-highlight);
+            box-shadow: 0 6px 12px rgba(56, 130, 216, 0.4); 
+            transform: translateY(-2px);
+        }
+        
+        /* --- Área de Resultado e Instrução --- */
+
+        .instrucao {
+            margin-top: 30px;
+            color: #666;
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        #resultado {
+            /* Estilo do Placeholder/Resultado */
+            margin-top: 20px;
+            padding: 30px;
+            width: 85%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            text-align: left;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            min-height: 150px;
+        }
+        #resultado h3 {
+            color: var(--blue-primary);
+            margin-top: 0;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Responsividade básica para telas muito pequenas */
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.5em;
+            }
+            .subtitle {
+                font-size: 1em;
+            }
+            .section-card {
+                padding: 15px;
+            }
+            button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
         }
     </style>
-</head>
-<body>
-    <img src="Image 2025-03-12 at 15.49.37.jpeg" alt="Banner Prefeitura de Ibiapina" style="width:30%; display:block; margin-bottom:50px;">
-    <h1>Escola Aderaldo Negreiro<br>Acesso às Turmas</h1>
-
-    <div class="container">
-        <button class="btn" onclick="mostrarInfo('A1')">Infantil II</button>
-        <button class="btn" onclick="mostrarInfo('B2')">Infantil III</button>
-        <button class="btn" onclick="mostrarInfo('D4')">Infantil IV</button>
-        <button class="btn" onclick="mostrarInfo('F6')">Infantil V</button>
-
-        <button class="btn" onclick="mostrarInfo('E2')">1º Ano</button>
-        <button class="btn" onclick="mostrarInfo('F2')">2º Ano</button>
-        <button class="btn" onclick="mostrarInfo('G2')">3º Ano</button>
-        <button class="btn" onclick="mostrarInfo('H2')">4º Ano</button>
-        <button class="btn" onclick="mostrarInfo('I2')">5º Ano</button>
-        <button class="btn" onclick="mostrarInfo('J2')">6º Ano</button>
-        <button class="btn" onclick="mostrarInfo('K2')">7º Ano</button>
-        <button class="btn" onclick="mostrarInfo('L2')">8º Ano</button>
-        <button class="btn" onclick="mostrarInfo('M2')">9º Ano</button>
-
-        <button class="btn" onclick="mostrarInfo('N2')">EJA I e II</button>
-    </div>
-    <pre> 
-
-    </pre>
-
-    <div id="resultado">Clique em um botão para carregar a informação...</div>
-
-
-<script> 
-const PLANILHA_ID = "1giI3kNJGRrVrJA8w3rseop2GYu2KZFg1Y7IM3ZBZVF0";
-const GID = "0";
-
-async function mostrarInfo(celula) {
-    const coluna = celula.replace(/[0-9]/g, ""); 
-    const linha = parseInt(celula.replace(/[A-Z]/g, "")) - 1;
-
-    // Converter letra da coluna para número (A=0, B=1, C=2...)
-    const colIndex = coluna.charCodeAt(0) - 65;
-
-    // Selecionar as colunas A e B
-    const url = `https://docs.google.com/spreadsheets/d/${PLANILHA_ID}/gviz/tq?gid=${GID}&tq=select+A,B+limit+1+offset+${linha}`;
-
-    try {
-        const resposta = await fetch(url);
-        const texto = await resposta.text();
-
-        const json = JSON.parse(
-            texto.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/)[1]
-        );
-
-        const a = json.table.rows[0]?.c[0]?.v ?? "—";
-        const b = json.table.rows[0]?.c[1]?.v ?? "—";
-
-        document.getElementById("resultado").innerText =
-            `Turma: ${a}\nQuantidade: ${b}`;
-
-
-    } catch (erro) {
-        document.getElementById("resultado").innerText = "Erro ao buscar dados.";
-        console.error(erro);
-    }
+<style> /* O CSS abaixo é para que o link <a> pareça um botão bonito */
+.botao-navegacao {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #4682B4; /* Cor primária do design */
+    color: white;
+    text-align: center;
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
-</script>
 
+.botao-navegacao:hover {
+    background-color: #386991; /* Cor um pouco mais escura no hover */
+}
+</style>
 
+<body>
+   
 
-</body>
-</html>
+    <div class="header-container">
+        <img class="logo" src="imagem/Image 2025-03-12 at 15.49.37.jpeg" alt="Logo Prefeitura">
+        <h1 class="main-title">Escola Aderaldo Negreiro</h1>
+        <h2 class="subtitle">Acesso às Turmas</h2>
+    </div>
 
+   
+
+    <p class="instrucao">Observação: Clique na Escola para visualizar as informações.</p>
+
+    <p>
+    <a href="http://127.0.0.1:5500/index.html"botao-navegacao">
+        Escola Aderaldo Negreiros
+    </a>
+    </p>
+     <p>
+    <a href="http://127.0.0.1:5500/index.html"botao-navegacao">
+        Escola Amadeu Camelo
+    </a>
+    </p>
+    <p>
+    <a href="http://127.0.0.1:5500/index.html"botao-navegacao">
+        Escola Dom Bosco
+    </a>
+    </p>
+    <a href="http://127.0.0.1:5500/index.html"botao-navegacao">
+        Escola Domingos Ferino
+    </a>
+    
+   
+
+    </body>
