@@ -27,6 +27,21 @@
         }
 
         /* --- Cabeçalho e Títulos --- */
+         .header-container2 {
+             /* Fundo sólido para o cabeçalho */
+            background-color: white;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center; /* Centraliza logo e títulos */
+            align-items: center;
+            flex-direction: column;
+            /* Cantos arredondados na parte inferior */
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+         }
 
         .header-container {
             /* Fundo sólido para o cabeçalho */
@@ -46,7 +61,7 @@
 
         .logo {
             /* Ajuste para o celular */
-            max-width: 150px; 
+            max-width: 200px; 
             height: auto;
             margin-bottom: 10px;
         }
@@ -201,10 +216,16 @@
 </style>
 
 <body>
-   
+   <div class="header-container2">
+        <img class="logo" src="78f05240-06d7-4c17-a2ec-4f31e905b923.png" alt="Logo Prefeitura">
+       
+    </div>
+    <p>
+
+    </p>
 
     <div class="header-container">
-        <img class="logo" src="78f05240-06d7-4c17-a2ec-4f31e905b923.png" alt="Logo Prefeitura">
+        
         <h1 class="main-title">Escola Aderaldo Negreiro</h1>
         <h2 class="subtitle">Acesso às Turmas</h2>
     </div>
@@ -235,5 +256,3 @@
    
 
     </body>
-
-
