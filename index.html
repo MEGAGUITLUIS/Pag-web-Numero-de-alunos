@@ -42,7 +42,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-bottom: 25px;
          }
-
         .header-container {
             /* Fundo sólido para o cabeçalho */
             background-color: var(--blue-primary);
@@ -62,7 +61,7 @@
         .logo {
             /* Ajuste para o celular */
             max-width: 200px; 
-            height: auto;
+            height:auto;
             margin-bottom: 10px;
         }
 
@@ -197,66 +196,123 @@
             }
         }
     </style>
-<style> /* O CSS abaixo é para que o link <a> pareça um botão bonito */
-.botao-navegacao {
-    display: inline-block;
-    padding: 15px 30px;
-    background-color: #4682B4; /* Cor primária do design */
-    color: white;
-    text-align: center;
-    text-decoration: none; /* Remove o sublinhado padrão do link */
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
 
-.botao-navegacao:hover {
-    background-color: #386991; /* Cor um pouco mais escura no hover */
-}
-</style>
+    <script>
+        // Função para remover a classe 'active-button' de todos e aplicar no selecionado
+        function setActiveButton(element) {
+            const allButtons = document.querySelectorAll('.buttons-container button');
+            allButtons.forEach(btn => btn.classList.remove('active-button'));
+            element.classList.add('active-button');
+        }
+
+        function carregarTurma(indice, buttonElement) {
+            
+            // Define o botão clicado como ativo
+            setActiveButton(buttonElement); 
+
+            const url =
+                "https://docs.google.com/spreadsheets/d/1giI3kNJGRrVrJA8w3rseop2GYu2KZFg1Y7IM3ZBZVF0/gviz/tq?tqx=out:json&gid=0&tq=select%20A,B,C,D";
+
+            document.getElementById("resultado").innerHTML = 
+                `<h3 style="color: #666;">Carregando...</h3><p style="text-align: center;">Aguarde um momento.</p>`;
+
+            fetch(url)
+                .then(res => res.text())
+                .then(text => {
+
+                    const jsonText = text.replace(/^[\s\S]*?\(/, "").replace(/\);$/, "");
+                    const json = JSON.parse(jsonText);
+
+                    const row = json.table.rows[indice];
+
+                    const nomeTurma = row?.c[0]?.v || "(vazio)";
+                    const qtdAlunos = row?.c[1]?.v || "(vazio)";
+                    const vagas = row?.c[2]?.v || "(vazio)";
+                    const turno = row?.c[3]?.v || "(vazio)";
+
+                    document.getElementById("resultado").innerHTML =
+                        `<h3><i class="fas fa-chalkboard-teacher"></i> Informações da Turma</h3>
+                        <p><b>Turma:</b> ${nomeTurma}</p>
+                        <p><b>Quantidade de alunos:</b> ${qtdAlunos}</p>
+                        <p><b>Quantidade de vagas:</b> ${vagas}</p>
+                        <p><b>Turno:</b> ${turno}</p>`;
+                })
+                .catch(err => {
+                    document.getElementById("resultado").innerHTML =
+                        `<h3><i class="fas fa-exclamation-triangle"></i> Erro</h3>
+                        <p>Não foi possível carregar os dados. Tente novamente mais tarde.</p>`;
+                    console.error("Erro:", err);
+                });
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
 
 <body>
-   <div class="header-container2">
-        <img class="logo" src="78f05240-06d7-4c17-a2ec-4f31e905b923.png" alt="Logo Prefeitura">
+ <div class="header-container2">
+        <img class="logo" src="imagem/78f05240-06d7-4c17-a2ec-4f31e905b923.png" alt="Logo Prefeitura">
        
     </div>
     <p>
 
     </p>
-
     <div class="header-container">
-        
+       
         <h1 class="main-title">Escola Aderaldo Negreiro</h1>
         <h2 class="subtitle">Acesso às Turmas</h2>
     </div>
 
-   
+    <div class="buttons-container">
 
-    <p class="instrucao">Observação: Clique na Escola para visualizar as informações.</p>
+        <div class="section-card">
+            <h3><i class="fas fa-baby"></i> Educação Infantil</h3>
+            <div class="button-row">
+                <button onclick="carregarTurma(0, this)">Infantil II</button>
+                <button onclick="carregarTurma(1, this)">Infantil III</button>
+                <button onclick="carregarTurma(2, this)">Infantil IV</button>
+                <button onclick="carregarTurma(3, this)">Infantil V</button>
+            </div>
+        </div>
 
-    <p>
-    <a href="https://alunosdadoos.netlify.app/"botao-navegacao">
-        Escola Aderaldo Negreiros
-    </a>
-    </p>
-     <p>
-    <a href="https://alunosdadoos.netlify.app/"botao-navegacao">
-        Escola Amadeu Camelo
-    </a>
-    </p>
-    <p>
-    <a href="https://alunosdadoos.netlify.app/"botao-navegacao">
-        Escola Dom Bosco
-    </a>
-    </p>
-    <a href="https://alunosdadoos.netlify.app/"botao-navegacao">
-        Escola Domingos Ferino
-    </a>
-    
-   
+        <div class="section-card">
+            <h3><i class="fas fa-book-open"></i> Ensino Fundamental</h3>
+            <div class="button-row">
+                <button onclick="carregarTurma(4, this)">1º Ano A</button>
+                <button onclick="carregarTurma(5, this)">2º Ano A</button>
+                <button onclick="carregarTurma(6, this)">3º Ano A</button>
+                <button onclick="carregarTurma(7, this)">4º Ano A</button>
+                <button onclick="carregarTurma(8, this)">5º Ano A</button>
+            </div>
+            <p>
+                
+            </p>
+            <div class="button-row">
+                <button onclick="carregarTurma(9, this)">6º Ano A</button>
+                <button onclick="carregarTurma(10, this)">7º Ano</button>
+                <button onclick="carregarTurma(11, this)">8º Ano</button>
+                <button onclick="carregarTurma(12, this)">9º Ano</button>
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <h3><i class="fas fa-user-graduate"></i> EJA</h3>
+            <div class="button-row">
+                <button onclick="carregarTurma(13, this)">EJA I</button>
+                <button onclick="carregarTurma(14, this)">EJA II</button>
+            </div>
+        </div>
 
-    </body>
+    </div>
 
+    <p class="instrucao">Clique em uma turma para visualizar as informações de vagas e turno.</p>
 
+    <div id="resultado">
+        <div style="text-align: center; padding: 20px;">
+            <i class="fas fa-search" style="font-size: 3em; color: var(--blue-primary); margin-bottom: 15px;"></i>
+            <h3 style="color: #666;">Selecione uma turma acima</h3>
+            <p>Os dados serão carregados neste espaço.</p>
+        </div>
+    </div>
 
-
+</body>
+</html>
